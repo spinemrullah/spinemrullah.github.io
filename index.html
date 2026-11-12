@@ -8,7 +8,7 @@
 <style>
 :root{--bg:#090b16;--panel:#111528;--panel2:#171d34;--text:#f4f6ff;--muted:#9ba5c4;--cyan:#27e0d0;--purple:#9b5cff;--line:#252d49}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#29204b 0,transparent 38%),var(--bg);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}
-header{position:sticky;top:0;z-index:5;background:#090b16eF;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+header{position:sticky;top:0;z-index:5;background:#090b16ef;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
 .nav{max-width:1180px;margin:auto;padding:15px 22px;display:flex;align-items:center;gap:20px}.logo{font-weight:950;letter-spacing:1px;font-size:19px;white-space:nowrap}.logo b{color:var(--cyan)}.navlinks{display:flex;gap:18px;margin-left:auto}.navlinks a{color:var(--muted);text-decoration:none;font-size:14px}.navlinks a:hover{color:var(--cyan)}
 button,.btn{border:0;border-radius:10px;padding:11px 16px;font-weight:800;cursor:pointer;color:#061312;background:linear-gradient(100deg,var(--cyan),#75f3ce)}button.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
 main{max-width:1180px;margin:auto;padding:28px 22px 70px}.hero{position:relative;overflow:hidden;border:1px solid #35305c;border-radius:22px;padding:44px 38px;background:linear-gradient(110deg,#171b36 0%,#20163b 55%,#102c3a 100%);min-height:230px}.hero:after{content:"";position:absolute;width:270px;height:270px;border:35px solid #27e0d022;border-radius:50%;right:7%;top:-80px;box-shadow:0 0 70px #9b5cff44}.eyebrow{color:var(--cyan);font-weight:900;font-size:12px;letter-spacing:2px}.hero h1{font-size:clamp(32px,6vw,56px);line-height:1.04;margin:12px 0;max-width:650px}.hero p{color:#c1c8e1;max-width:570px;line-height:1.6}.hero>*{position:relative;z-index:1}
@@ -22,41 +22,165 @@ footer{border-top:1px solid var(--line);padding:25px;text-align:center;color:var
 </style>
 </head>
 <body>
-<header><div class="nav"><div class="logo">EMRULLAH <b>GAMING</b></div><nav class="navlinks"><a href="#videolar">Videolar</a><a href="#hakkinda">Hakkında</a></nav><button class="secondary" id="adminOpen">Yönetici</button></div></header>
+<header><div class="nav"><div class="logo">EMRULLAH <b>GAMING</b></div><nav class="navlinks"><a href="#videolar">Videolar</a><a href="#hakkinda">Hakkında</a></nav><button class="secondary" id="adminOpen" type="button">Yönetici</button></div></header>
 <main>
 <section class="hero"><div class="eyebrow">OYUN • EĞLENCE • VİDEO</div><h1>Oyun dünyasına<br>hoş geldin!</h1><p>En yeni oyun videolarımı burada keşfet. Favori videonu seç, keyifle izlemeye başla.</p><a class="btn" href="#videolar" style="display:inline-block;text-decoration:none">Videoları keşfet ↓</a></section>
-<section id="videolar"><div class="toolbar"><h2>Son videolar</h2><input id="search" class="search" placeholder="Video ara..." aria-label="Video ara"></div><div class="chips" id="chips"><button class="chip active" data-cat="Tümü">Tümü</button><button class="chip" data-cat="Oyun">Oyun</button><button class="chip" data-cat="Eğlence">Eğlence</button><button class="chip" data-cat="Diğer">Diğer</button></div><div class="grid" id="videoGrid"><div class="empty">Videolar yükleniyor...</div></div></section>
+<section id="videolar"><div class="toolbar"><h2>Son videolar</h2><input id="search" class="search" placeholder="Video ara..." aria-label="Video ara"></div><div class="chips" id="chips"><button class="chip active" data-cat="Tümü" type="button">Tümü</button><button class="chip" data-cat="Oyun" type="button">Oyun</button><button class="chip" data-cat="Eğlence" type="button">Eğlence</button><button class="chip" data-cat="Diğer" type="button">Diğer</button></div><div class="grid" id="videoGrid"><div class="empty">Videolar yükleniyor...</div></div></section>
 <section id="hakkinda" style="margin-top:42px"><h2>Bu kanal hakkında</h2><p style="color:var(--muted);line-height:1.7">Burası Emrullah'ın oyun ve video dünyası. Yeni içerikler yayınlandıkça bu sayfada yer alacak.</p></section>
-<section class="admin-panel" id="adminPanel"><h2>Video yönetim paneli</h2><div id="loginBox"><p style="color:var(--muted)">Yönetici hesabınla giriş yap.</p><div class="fields"><div class="field"><label>E-posta</label><input id="email" type="email" autocomplete="username"></div><div class="field"><label>Şifre</label><input id="password" type="password" autocomplete="current-password"></div></div><div class="admin-actions"><button id="loginBtn">Giriş yap</button></div></div>
-<div id="uploadBox" class="hidden"><p style="color:var(--muted)">MP4/WebM dosyası yükleyebilir veya YouTube bağlantısı ekleyebilirsin.</p><div class="fields"><div class="field full"><label>Video başlığı</label><input id="title" maxlength="100" placeholder="Video başlığı"></div><div class="field"><label>Kategori</label><select id="category"><option>Oyun</option><option>Eğlence</option><option>Diğer</option></select></div><div class="field"><label>YouTube bağlantısı (isteğe bağlı)</label><input id="youtube" placeholder="https://www.youtube.com/watch?v=..."></div><div class="field full"><label>Video dosyası (YouTube yerine doğrudan yükleme)</label><input id="videoFile" type="file" accept="video/mp4,video/webm,video/quicktime"></div><div class="field full"><label>Küçük resim bağlantısı (isteğe bağlı)</label><input id="thumbnail" type="url" placeholder="https://..."></div></div><div class="admin-actions"><button id="publishBtn">Videoyu yayınla</button><button class="secondary" id="logoutBtn">Çıkış yap</button></div><div class="status" id="adminStatus">Yükleme için Supabase kurulumu gereklidir.</div><h3 style="margin-top:25px">Yayınlanan videolar</h3><div id="manageList" class="status">Henüz yüklenmedi.</div></div></section>
+<section class="admin-panel" id="adminPanel"><h2>Video yönetim paneli</h2><div id="loginBox"><p style="color:var(--muted)">Yönetici hesabınla giriş yap.</p><div class="fields"><div class="field"><label for="email">E-posta</label><input id="email" type="email" autocomplete="username"></div><div class="field"><label for="password">Şifre</label><input id="password" type="password" autocomplete="current-password"></div></div><div class="admin-actions"><button id="loginBtn" type="button">Giriş yap</button></div></div>
+<div id="uploadBox" class="hidden"><p style="color:var(--muted)">MP4/WebM dosyası yükleyebilir veya YouTube bağlantısı ekleyebilirsin.</p><div class="fields"><div class="field full"><label for="title">Video başlığı</label><input id="title" maxlength="100" placeholder="Video başlığı"></div><div class="field"><label for="category">Kategori</label><select id="category"><option>Oyun</option><option>Eğlence</option><option>Diğer</option></select></div><div class="field"><label for="youtube">YouTube bağlantısı (isteğe bağlı)</label><input id="youtube" placeholder="https://www.youtube.com/watch?v=..."></div><div class="field full"><label for="videoFile">Video dosyası (YouTube yerine doğrudan yükleme)</label><input id="videoFile" type="file" accept="video/mp4,video/webm,video/quicktime"></div><div class="field full"><label for="thumbnail">Küçük resim bağlantısı (isteğe bağlı)</label><input id="thumbnail" type="url" placeholder="https://..."></div></div><div class="admin-actions"><button id="publishBtn" type="button">Videoyu yayınla</button><button class="secondary" id="logoutBtn" type="button">Çıkış yap</button></div><div class="status" id="adminStatus">Yükleme için Supabase kurulumu gereklidir.</div><h3 style="margin-top:25px">Yayınlanan videolar</h3><div id="manageList" class="status">Henüz yüklenmedi.</div></div></section>
 </main>
 <footer>© <span id="year"></span> EMRULLAH GAMING · Tüm hakları saklıdır.</footer>
-<div class="modal" id="playerModal"><div class="dialog"><div class="dialog-head"><strong id="modalTitle">Video</strong><button class="close" id="modalClose">✕</button></div><div class="dialog-body" id="playerBody"></div></div></div>
+<div class="modal" id="playerModal"><div class="dialog"><div class="dialog-head"><strong id="modalTitle">Video</strong><button class="close" id="modalClose" type="button">✕</button></div><div class="dialog-body" id="playerBody"></div></div></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="this.onerror=null;this.src='https://unpkg.com/@supabase/supabase-js@2'"></script>
 <script src="config.js"></script>
 <script>
-const $=id=>document.getElementById(id); $('year').textContent=new Date().getFullYear();
-let supabase=null, allVideos=[], activeCat='Tümü', user=null;
-if(window.SITE_CONFIG && SITE_CONFIG.url && SITE_CONFIG.anonKey && !SITE_CONFIG.url.includes('BURAYA') && !SITE_CONFIG.anonKey.includes('BURAYA')){supabase=window.supabase.createClient(SITE_CONFIG.url,SITE_CONFIG.anonKey);}
-function ytId(url){try{let u=new URL(url);if(u.hostname.includes('youtu.be'))return u.pathname.slice(1);if(u.searchParams.get('v'))return u.searchParams.get('v');let m=u.pathname.match(/\/embed\/([^/]+)/);return m?m[1]:null}catch{return null}}
-function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function thumb(v){if(v.thumbnail)return v.thumbnail;let id=v.youtube_url&&ytId(v.youtube_url);return id?`https://img.youtube.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`:''}
-function render(){let q=$('search').value.toLowerCase();let list=allVideos.filter(v=>(activeCat==='Tümü'||v.category===activeCat)&&(`${v.title} ${v.category}`).toLowerCase().includes(q));$('videoGrid').innerHTML=list.length?list.map(v=>`<article class="video-card" data-id="${esc(v.id)}"><div class="thumb">${thumb(v)?`<img loading="lazy" src="${esc(thumb(v))}" alt="">`:'<span style="font-size:42px">🎮</span>'}<span class="play">▶</span></div><div class="video-info"><h3>${esc(v.title)}</h3><div class="meta">${esc(v.category||'Diğer')} · ${new Date(v.created_at||Date.now()).toLocaleDateString('tr-TR')}</div></div></article>`).join(''):'<div class="empty">Bu aramada video bulunamadı. Yeni videolar yakında burada!</div>'}
-async function loadVideos(){if(!supabase){allVideos=[];render();$('videoGrid').innerHTML='<div class="empty">Site tasarımı hazır. Videoları yayınlamak için Supabase bağlantısı henüz yapılmadı.</div>';return}let {data,error}=await supabase.from('videos').select('*').eq('published',true).order('created_at',{ascending:false});if(error){$('videoGrid').innerHTML='<div class="empty">Videolar alınamadı. Supabase tablo ve izin ayarlarını kontrol et.</div>';return}allVideos=data||[];render();renderManage()}
-function openVideo(v){$('modalTitle').textContent=v.title;let id=v.youtube_url&&ytId(v.youtube_url);$('playerBody').innerHTML=id?`<iframe class="player" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1" title="${esc(v.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`:v.video_url?`<video class="player" controls autoplay playsinline src="${esc(v.video_url)}"></video>`:'<p>Video bağlantısı bulunamadı.</p>';$('playerModal').classList.add('show')}
-$('videoGrid').addEventListener('click',e=>{let card=e.target.closest('.video-card');if(card){let v=allVideos.find(x=>String(x.id)===card.dataset.id);if(v)openVideo(v)}});
-$('modalClose').onclick=()=>{$('playerModal').classList.remove('show');$('playerBody').innerHTML=''};$('playerModal').onclick=e=>{if(e.target===$('playerModal'))$('modalClose').click()};
-$('search').addEventListener('input',render);$('chips').addEventListener('click',e=>{let b=e.target.closest('[data-cat]');if(!b)return;activeCat=b.dataset.cat;document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active',x===b));render()});
-$('adminOpen').onclick=()=>{$('adminPanel').classList.toggle('show');$('adminPanel').scrollIntoView({behavior:'smooth',block:'start'})};
-function status(t){$('adminStatus').textContent=t}
-async function syncAuth(){if(!supabase){$('loginBox').classList.remove('hidden');$('uploadBox').classList.add('hidden');status('Önce config.js dosyasına Supabase URL ve anon key bilgilerini ekle.');return}let {data}=await supabase.auth.getSession();user=data.session?.user||null;$('loginBox').classList.toggle('hidden',!!user);$('uploadBox').classList.toggle('hidden',!user);if(user)status('Giriş yapıldı: '+user.email);else status('Yönetici girişi bekleniyor.');}
-$('loginBtn').onclick=async()=>{if(!supabase)return status('Supabase ayarları eksik.');let {error}=await supabase.auth.signInWithPassword({email:$('email').value,password:$('password').value});status(error?error.message:'Giriş başarılı.');await syncAuth();await loadVideos()};
-$('logoutBtn').onclick=async()=>{await supabase.auth.signOut();await syncAuth()};
-function renderManage(){if(!user)return;$('manageList').innerHTML=allVideos.map(v=>`<div style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)"><span>${esc(v.title)}</span><button class="secondary" data-delete="${esc(v.id)}">Sil</button></div>`).join('')||'Henüz video yok.'}
-$('manageList').addEventListener('click',async e=>{let b=e.target.closest('[data-delete]');if(!b||!confirm('Bu videoyu silmek istiyor musun?'))return;let {error}=await supabase.from('videos').delete().eq('id',b.dataset.delete);status(error?error.message:'Video silindi.');await loadVideos()});
-$('publishBtn').onclick=async()=>{if(!supabase||!user)return status('Önce yönetici girişi yap.');let title=$('title').value.trim(),youtube=$('youtube').value.trim(),file=$('videoFile').files[0],category=$('category').value,thumbnail=$('thumbnail').value.trim();if(!title)return status('Video başlığı yaz.');if(!youtube&&!file)return status('YouTube bağlantısı ekle veya video dosyası seç.');if(youtube&&!ytId(youtube))return status('Geçerli bir YouTube bağlantısı gir.');if(youtube&&file)return status('Bir video kaynağı seç: YouTube veya dosya.');let video_url=null;
-if(file){if(file.size>500*1024*1024)return status('Dosya en fazla 500 MB olabilir.');let ext=(file.name.split('.').pop()||'mp4').toLowerCase();let path=`${user.id}/${Date.now()}-${crypto.randomUUID()}.${ext}`;status('Video yükleniyor...');let up=await supabase.storage.from('videos').upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});if(up.error)return status('Dosya yüklenemedi: '+up.error.message);video_url=supabase.storage.from('videos').getPublicUrl(path).data.publicUrl}
-let {error}=await supabase.from('videos').insert({title,category,youtube_url:youtube||null,video_url,thumbnail:thumbnail||null,published:true,created_by:user.id});if(error)return status('Video kaydedilemedi: '+error.message);$('title').value='';$('youtube').value='';$('videoFile').value='';$('thumbnail').value='';status('Video başarıyla yayınlandı!');await loadVideos()};
-syncAuth();loadVideos();
+'use strict';
+const $ = id => document.getElementById(id);
+$('year').textContent = new Date().getFullYear();
+let supabaseClient = null, allVideos = [], activeCat = 'Tümü', user = null;
+if (window.SITE_CONFIG && window.supabase && typeof window.supabase.createClient === 'function' &&
+    SITE_CONFIG.url && SITE_CONFIG.anonKey &&
+    !SITE_CONFIG.url.includes('BURAYA') && !SITE_CONFIG.anonKey.includes('BURAYA')) {
+  supabaseClient = window.supabase.createClient(SITE_CONFIG.url, SITE_CONFIG.anonKey);
+}
+function ytId(url) {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes('youtu.be')) return u.pathname.slice(1);
+    if (u.searchParams.get('v')) return u.searchParams.get('v');
+    const m = u.pathname.match(/\/embed\/([^/]+)/);
+    return m ? m[1] : null;
+  } catch { return null; }
+}
+function esc(s = '') {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function thumb(v) {
+  if (v.thumbnail) return v.thumbnail;
+  const id = v.youtube_url && ytId(v.youtube_url);
+  return id ? `https://img.youtube.com/vi/${encodeURIComponent(id)}/hqdefault.jpg` : '';
+}
+function render() {
+  const q = $('search').value.toLowerCase();
+  const list = allVideos.filter(v => (activeCat === 'Tümü' || v.category === activeCat) &&
+    (`${v.title} ${v.category}`).toLowerCase().includes(q));
+  $('videoGrid').innerHTML = list.length ? list.map(v =>
+    `<article class="video-card" data-id="${esc(v.id)}"><div class="thumb">${thumb(v) ? `<img loading="lazy" src="${esc(thumb(v))}" alt="">` : '<span style="font-size:42px">🎮</span>'}<span class="play">▶</span></div><div class="video-info"><h3>${esc(v.title)}</h3><div class="meta">${esc(v.category || 'Diğer')} · ${new Date(v.created_at || Date.now()).toLocaleDateString('tr-TR')}</div></div></article>`
+  ).join('') : '<div class="empty">Bu aramada video bulunamadı. Yeni videolar yakında burada!</div>';
+}
+async function loadVideos() {
+  if (!supabaseClient) {
+    allVideos = []; render();
+    $('videoGrid').innerHTML = '<div class="empty">Site tasarımı hazır. Supabase bağlantısı yüklenemedi. config.js ve internet bağlantısını kontrol et.</div>';
+    return;
+  }
+  const {data, error} = await supabaseClient.from('videos').select('*').eq('published', true).order('created_at', {ascending:false});
+  if (error) {
+    $('videoGrid').innerHTML = '<div class="empty">Videolar alınamadı. Supabase tablo ve izin ayarlarını kontrol et.</div>';
+    return;
+  }
+  allVideos = data || []; render(); renderManage();
+}
+function openVideo(v) {
+  $('modalTitle').textContent = v.title;
+  const id = v.youtube_url && ytId(v.youtube_url);
+  $('playerBody').innerHTML = id
+    ? `<iframe class="player" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1" title="${esc(v.title)}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+    : v.video_url ? `<video class="player" controls autoplay playsinline src="${esc(v.video_url)}"></video>` : '<p>Video bağlantısı bulunamadı.</p>';
+  $('playerModal').classList.add('show');
+}
+$('videoGrid').addEventListener('click', e => {
+  const card = e.target.closest('.video-card');
+  if (card) { const v = allVideos.find(x => String(x.id) === card.dataset.id); if (v) openVideo(v); }
+});
+$('modalClose').onclick = () => { $('playerModal').classList.remove('show'); $('playerBody').innerHTML = ''; };
+$('playerModal').onclick = e => { if (e.target === $('playerModal')) $('modalClose').click(); };
+$('search').addEventListener('input', render);
+$('chips').addEventListener('click', e => {
+  const b = e.target.closest('[data-cat]'); if (!b) return;
+  activeCat = b.dataset.cat;
+  document.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x === b));
+  render();
+});
+$('adminOpen').onclick = () => {
+  $('adminPanel').classList.toggle('show');
+  $('adminPanel').scrollIntoView({behavior:'smooth', block:'start'});
+};
+function status(t) { $('adminStatus').textContent = t; }
+async function syncAuth() {
+  if (!supabaseClient) {
+    $('loginBox').classList.remove('hidden'); $('uploadBox').classList.add('hidden');
+    status('Supabase bağlantısı kurulamadı. config.js dosyasını kontrol et.');
+    return;
+  }
+  const {data, error} = await supabaseClient.auth.getSession();
+  if (error) status('Oturum kontrol hatası: ' + error.message);
+  user = data && data.session ? data.session.user : null;
+  $('loginBox').classList.toggle('hidden', !!user);
+  $('uploadBox').classList.toggle('hidden', !user);
+  if (user) status('Giriş yapıldı: ' + user.email);
+  else status('Yönetici girişi bekleniyor.');
+}
+$('loginBtn').onclick = async () => {
+  if (!supabaseClient) return status('Supabase ayarları eksik.');
+  const email = $('email').value.trim(), password = $('password').value;
+  if (!email || !password) return status('E-posta ve şifreyi gir.');
+  const {error} = await supabaseClient.auth.signInWithPassword({email, password});
+  if (error) { status('Giriş başarısız: ' + error.message); return; }
+  status('Giriş başarılı.');
+  await syncAuth(); await loadVideos();
+};
+$('logoutBtn').onclick = async () => {
+  if (!supabaseClient) return;
+  const {error} = await supabaseClient.auth.signOut();
+  if (error) status('Çıkış hatası: ' + error.message);
+  await syncAuth();
+};
+function renderManage() {
+  if (!user) return;
+  $('manageList').innerHTML = allVideos.map(v =>
+    `<div style="display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)"><span>${esc(v.title)}</span><button class="secondary" type="button" data-delete="${esc(v.id)}">Sil</button></div>`
+  ).join('') || 'Henüz yayınlanmış video yok.';
+}
+$('manageList').addEventListener('click', async e => {
+  const b = e.target.closest('[data-delete]');
+  if (!b || !confirm('Bu videoyu silmek istiyor musun?')) return;
+  const {error} = await supabaseClient.from('videos').delete().eq('id', b.dataset.delete);
+  status(error ? 'Silme hatası: ' + error.message : 'Video silindi.');
+  await loadVideos();
+});
+$('publishBtn').onclick = async () => {
+  if (!supabaseClient || !user) return status('Önce yönetici girişi yap.');
+  const title = $('title').value.trim(), youtube = $('youtube').value.trim();
+  const file = $('videoFile').files[0], category = $('category').value, thumbnail = $('thumbnail').value.trim();
+  if (!title) return status('Video başlığı yaz.');
+  if (!youtube && !file) return status('YouTube bağlantısı ekle veya video dosyası seç.');
+  if (youtube && !ytId(youtube)) return status('Geçerli bir YouTube bağlantısı gir.');
+  if (youtube && file) return status('Bir video kaynağı seç: YouTube veya dosya.');
+  let video_url = null;
+  if (file) {
+    if (file.size > 500 * 1024 * 1024) return status('Dosya en fazla 500 MB olabilir.');
+    const ext = (file.name.split('.').pop() || 'mp4').toLowerCase();
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = `${user.id}/${Date.now()}-${safeName}`;
+    status('Video yükleniyor...');
+    const up = await supabaseClient.storage.from('videos').upload(path, file, {
+      cacheControl:'3600', upsert:false, contentType:file.type || 'video/mp4'
+    });
+    if (up.error) return status('Dosya yüklenemedi: ' + up.error.message);
+    video_url = supabaseClient.storage.from('videos').getPublicUrl(path).data.publicUrl;
+  }
+  const {error} = await supabaseClient.from('videos').insert({
+    title, category, youtube_url:youtube || null, video_url, thumbnail:thumbnail || null,
+    published:true, created_by:user.id
+  });
+  if (error) return status('Video kaydedilemedi: ' + error.message);
+  $('title').value=''; $('youtube').value=''; $('videoFile').value=''; $('thumbnail').value='';
+  status('Video başarıyla yayınlandı!'); await loadVideos();
+};
+syncAuth();
+loadVideos();
 </script>
-</body></html>
+</body>
+</html>
